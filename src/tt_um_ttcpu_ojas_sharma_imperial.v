@@ -4,7 +4,7 @@
  */
 
 `default_nettype none
-`include <ttcpu.sv>
+//`include <ttcpu.sv>
 
 module tt_um_ttcpu_ojas_sharma_imperial (
     input  wire [7:0] ui_in,    // Dedicated inputs

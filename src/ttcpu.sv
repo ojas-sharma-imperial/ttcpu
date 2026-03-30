@@ -1,5 +1,5 @@
-`include "controlpath.sv"
-`include "datapath.sv"
+//`include "controlpath.sv"
+//`include "datapath.sv"
 
 module ttcpu (
     input logic clk,

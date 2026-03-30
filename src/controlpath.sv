@@ -1,5 +1,5 @@
-`include "controldecode.sv"
-`include "cond.sv"
+//`include "controldecode.sv"
+//`include "cond.sv"
 
 module controlpath (
     input logic clk,

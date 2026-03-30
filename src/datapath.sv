@@ -1,7 +1,7 @@
-`include "dpdecode.sv"
-`include "extend.sv"
-`include "regfile.sv"
-`include "alu4.sv"
+//`include "dpdecode.sv"
+//`include "extend.sv"
+//`include "regfile.sv"
+//`include "alu4.sv"
 
 module datapath (
     input logic clk,
