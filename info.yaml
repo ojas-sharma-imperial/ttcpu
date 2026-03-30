@@ -32,14 +32,14 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: "ram_data[0]"
-  ui[1]: "ram_data[1]"
-  ui[2]: "ram_data[2]"
-  ui[3]: "ram_data[3]"
-  ui[4]: "ram_data[4]"
-  ui[5]: "ram_data[5]"
-  ui[6]: "ram_data[6]"
-  ui[7]: "ram_data[7]"
+  ui[0]: "rom_data[0]"
+  ui[1]: "rom_data[1]"
+  ui[2]: "rom_data[2]"
+  ui[3]: "rom_data[3]"
+  ui[4]: "rom_data[4]"
+  ui[5]: "rom_data[5]"
+  ui[6]: "rom_data[6]"
+  ui[7]: "rom_data[7]"
 
   # Outputs
   uo[0]: "ram_address[4]"

@@ -22,6 +22,9 @@ module tt_um_ttcpu_ojas_sharma_imperial (
   wire [3:0] memdout;
 
   assign reset = ~rst_n;
+  assign uio_oe = 8'b11110000;
+  assign uo_out[0] = memaddr[4];
+  assign uio_out[7:4] = memaddr[3:0];
 
   ttcpu (
     .clk (clk),
@@ -37,6 +40,6 @@ module tt_um_ttcpu_ojas_sharma_imperial (
   );
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused = &{uio_out[3:0], uio_in[7:4], ena, 1'b0};
 
 endmodule
