@@ -26,7 +26,7 @@ module tt_um_ttcpu_ojas_sharma_imperial (
   assign uo_out[0] = memaddr[4];
   assign uio_out[7:4] = memaddr[3:0];
 
-  ttcpu (
+  ttcpu main_cpu (
     .clk (clk),
     .reset (reset),
 
