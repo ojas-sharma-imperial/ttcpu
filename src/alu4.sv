@@ -54,7 +54,6 @@ module shift (
 );
 
 logic [3:0] shift1toshift2data;
-assign shift1toshift2data = 4'b0000;
 logic shift1toshift2out;
 
 shift_n #(.SHIFT_COUNT(1)) shift_1 (
