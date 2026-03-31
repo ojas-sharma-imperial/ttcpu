@@ -6,7 +6,7 @@ SIM ?= icarus
 FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_ttcpu_ojas_sharma_imperial.v alu4.sv cond.sv controldecode.sv controlpath.sv datapath.sv dpdecode.sv extend.sv regfile.sv ttcpu.sv
+PROJECT_SOURCES = tt_um_ojas_sharma_imperial_ttcpu.sv alu4.sv cond.sv controldecode.sv controlpath.sv datapath.sv dpdecode.sv extend.sv regfile.sv ttcpu.sv
 
 ifneq ($(GATES),yes)
 

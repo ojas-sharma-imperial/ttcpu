@@ -6,7 +6,7 @@
 `default_nettype none
 //`include <ttcpu.sv>
 
-module tt_um_ttcpu_ojas_sharma_imperial (
+module tt_um_ojas_sharma_imperial_ttcpu (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
