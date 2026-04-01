@@ -28,13 +28,13 @@ end
 
 always_comb begin
     case (ad1)
-        1'b0: dout1 <= regA;
-        1'b1: dout1 <= regB;
+        1'b0: dout1 = regA;
+        1'b1: dout1 = regB;
     endcase
 
     case (ad2)
-        1'b0: dout2 <= regA;
-        1'b1: dout2 <= regB;
+        1'b0: dout2 = regA;
+        1'b1: dout2 = regB;
     endcase
 end
 

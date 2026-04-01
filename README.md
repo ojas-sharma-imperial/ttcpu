@@ -1,42 +1,29 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# ttcpu - a custom 4-bit RISC microprocessor for the Tiny Tapeout ASIC
 
-- [Read the documentation for project](docs/info.md)
+The ttcpu is a 4-bit RISC microprocessor design and ISA designed around the constraints of the IO ports available on the Tiny Tapeout 1x1 tile, and designed such that as much 4-bit computational ability can be put on the chip.
 
-## What is Tiny Tapeout?
+The chip is designed around an 8-bit instruction word and a custom-defined ISA, which is laid out in the [ISA documentation](docs/isa.md). The largest constraint on the abilities of this microprocessor occur due to the limited instruction word available for use by a RISC architecture. The 1x1 Tiny Tapeout tile provides more than enough logic space for the (relatively) simple logical circuitry of the ttcpu.
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+## Functional Overview
 
-To learn more and get started, visit https://tinytapeout.com.
+The ttcpu contains many commonly-found instructions on RISC microprocessors, though some limited due to size constraints on the instruction word. The ttcpu can address 64 8-bit-word instructions, and 32 4-bit-word RAM locations, this being possible largely due to the use of the Harvard model of CPU.
 
-## Set up your Verilog project
+There are largely 4 categories of instruction present on the ttcpu:
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+- ALU Instructions (ie. MOV, ADD, SUB, SHIFT)
+- Memory Instructions (ie. LDR, STR)
+- Jump Instructions (ie. JMP, JEQ, JSR)
+- Extend Instructions (allowing computed addressing of greater than 4-bits)
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
+The exact use of these instructions, along with assembly instructions for the ISA are defined in the [ISA documentation](docs/isa.md).
 
-## Enable GitHub actions to build the results page
+## External Hardware
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+Due to the limited IO ports available on a 1x1 Tiny Tapeout tile, the distribution of IO pins for different ttcpu pins may seem a bit strange. Additionally, the ROM and RAM interface are non-standard and not available as off-the-shelf parts. This project provides Arduino-compatible code to allow an external microcontroller to be connected to the ttcpu to emulate an external RAM and ROM of specification expected by the ttcpu.
 
-## Resources
+The ttcpu expects a:
 
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+- 64 8-bit-word instruction ROM
+- 32 4-bit-word data RAM, where the RAM.din and RAM.dout lines are the same (bidirectional lines due to limited pins available on the Tiny Tapeout tile) and the direction of the data lines is controlled by a RAM.wen output pin.

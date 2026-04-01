@@ -18,7 +18,7 @@ end
 
 always_ff @(posedge clk) begin
     if (reset) begin
-        regX <= 3'b00;
+        regX <= 2'b00;
         extactive <= 1'b0;
     end else begin // not being reset
         if (extactive) begin
