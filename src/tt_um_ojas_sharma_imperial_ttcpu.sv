@@ -42,8 +42,11 @@ module tt_um_ojas_sharma_imperial_ttcpu (
 
   // split up the RAM address output to correct pinout
 
-  assign memaddr[4] = uo_out[6];
-  assign memaddr[3:0] = uio_out[7:4];
+  //assign memaddr[4] = uo_out[6];
+  //assign memaddr[3:0] = uio_out[7:4];
+
+  assign uo_out[6] = memaddr[4];
+  assign uio_out[7:4] = memaddr[3:0];
 
   // set unused pins to respective constant values
 

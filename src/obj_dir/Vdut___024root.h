@@ -66,8 +66,8 @@ class Vdut___024root final : public VerilatedModule {
     CData/*5:0*/ testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_reg;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__reset;
-    CData/*7:0*/ __Vchglast__TOP__testing__DOT__ui_in;
-    CData/*3:0*/ __Vchglast__TOP__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_alu__DOT__addsubdout;
+    CData/*7:0*/ __Vchglast__TOP__testing__DOT__uo_out;
+    CData/*3:0*/ __Vchglast__TOP__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_alu__DOT__secondinput;
     IData/*31:0*/ testing__DOT__main_memory__DOT__unnamedblk1__DOT__i;
     VlUnpacked<CData/*3:0*/, 32> testing__DOT__main_memory__DOT__ram_mem;
     VlUnpacked<CData/*7:0*/, 64> testing__DOT__main_memory__DOT__rom_mem;
