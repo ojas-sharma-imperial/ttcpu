@@ -42,14 +42,14 @@ pinout:
   ui[7]: "rom_data[7]"
 
   # Outputs
-  uo[0]: "ram_address[4]"
-  uo[1]: "ram_wen"
-  uo[2]: "rom_address[0]"
-  uo[3]: "rom_address[1]"
-  uo[4]: "rom_address[2]"
-  uo[5]: "rom_address[3]"
-  uo[6]: "rom_address[4]"
-  uo[7]: "rom_address[5]"
+  uo[0]: "rom_address[0]"
+  uo[1]: "rom_address[1]"
+  uo[2]: "rom_address[2]"
+  uo[3]: "rom_address[3]"
+  uo[4]: "rom_address[4]"
+  uo[5]: "rom_address[5]"
+  uo[6]: "ram_address[4]"
+  uo[7]: "ram_wen"
 
   # Bidirectional pins
   uio[0]: "ram_data[0]"
