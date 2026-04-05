@@ -55,31 +55,32 @@ There are five types of immediate value that can be inputted into various instru
 
 This section outlines the syntax and detailed function of each ttcpu instruction from the perspective of an assembly-language programmer, simplifying some of the machine-code-level nuances.
 
-| Instruction Opcode | Operation | Writes to Register? | Writes to Flags? |
-| :---: | :---: | :---: | :---: |
-| `MOV` | `A := #IMMS4`; `Ra := Rb` | `A` for immediate; `Ra` | `Z` |
-| `ADD` | `A := A + #IMMS4`; `Ra := Ra + Rb` | `A` for immediate; `Ra` | `Z`, `C` |
-| `SUB` | `A := A - #IMMS4`; `Ra := Ra - Rb` | `A` for immediate; `Ra` | `Z`, `C` |
-| `ADC` | `A := A - #IMMS4`; `Ra := Ra - Rb + FlagC` | `A` for immediate; `Ra` | `Z`, `C` |
-| `SBC` | `A := A - #IMMS4`; `Ra := Ra - Rb + (FlagC - 1)` | `A` for immediate; `Ra` | `Z`, `C` |
-| `NAND` | `A := ~(A && #IMMS4)`; `Ra := ~(Ra && Rb)` | `A` for immediate; `Ra` | `Z` |
-| `CMP` | `A := A - #IMMS4`; `Ra - Rb` | \- | `Z`, `C` |
-| `LSL` | `A := A << #SHIFTCNT`; 0 loaded in | `A` | `Z`, `C` |
-| `LSR` | `A := A >> #SHIFTCNT`; 0 loaded in | `A` | `Z`, `C` |
-| `ASR` | `A := A << #SHIFTCNT`; sign-bit loaded in | `A` | `Z`, `C` |
-| `XSR` | `A := A << #SHIFTCNT`; `FlagC` loaded in | `A` | `Z`, `C` |
-| `LDR` | `Ra := RAM[#IMM2]`; `Ra := RAM[Rb]` | `Ra` | `Z` |
-| `STR` | `RAM[#IMM2] := Ra`; `RAM[Ra] := Rb` | \- | \- |
-| `JMP` | `PC := PC + #IMMC2` | `PC` | \- |
-| `JEQ` | `PC := PC + #IMMC2` if `FlagZ = 1` | `PC` | \- |
-| `JNE` | `PC := PC + #IMMC2` if `FlagZ = 0` | `PC` | \- |
-| `JCS` | `PC := PC + #IMMC2` if `FlagC = 1` | `PC` | \- |
-| `JCC` | `PC := PC + #IMMC2` if `FlagC = 0` | `PC` | \- |
-| `JSR` | `PCX := PC + 1`; `PC := PC + Ra` | `PC`, `PCX` | \- |
-| `RET` | `PC := PCX` | `PC` | \- |
-| `EXT1` | `X[0] := #IMM1` | `X` | \- |
-| `EXT2` | `X[1:0] := #IMM2`; `X[1:0] := Ra[1:0]` | `X` | \- |
-| `NOP` | \- | \- | \- |
+| Instruction Opcode | Operation | Writes to Register? | Writes to Flags? | Affected by EXT? |
+| :---: | :---: | :---: | :---: | :---: |
+| `MOV` | `A := #IMMS4`; `Ra := Rb` | `A` for immediate; `Ra` | `Z` | No |
+| `ADD` | `A := A + #IMMS4`; `Ra := Ra + Rb` | `A` for immediate; `Ra` | `Z`, `C` | No |
+| `SUB` | `A := A - #IMMS4`; `Ra := Ra - Rb` | `A` for immediate; `Ra` | `Z`, `C` | No |
+| `ADC` | `A := A - #IMMS4`; `Ra := Ra - Rb + FlagC` | `A` for immediate; `Ra` | `Z`, `C` | No |
+| `SBC` | `A := A - #IMMS4`; `Ra := Ra - Rb + (FlagC - 1)` | `A` for immediate; `Ra` | `Z`, `C` | No |
+| `NAND` | `A := ~(A && #IMMS4)`; `Ra := ~(Ra && Rb)` | `A` for immediate; `Ra` | `Z` | No |
+| `CMP` | `A := A - #IMMS4`; `Ra - Rb` | \- | `Z`, `C` | No |
+| `LSL` | `A := A << #SHIFTCNT`; 0 loaded in | `A` | `Z`, `C` | No |
+| `LSR` | `A := A >> #SHIFTCNT`; 0 loaded in | `A` | `Z`, `C` | No |
+| `ASR` | `A := A << #SHIFTCNT`; sign-bit loaded in | `A` | `Z`, `C` | No |
+| `XSR` | `A := A << #SHIFTCNT`; `FlagC` loaded in | `A` | `Z`, `C` | No |
+| `LDR` | `Ra := RAM[#IMM2]`; `Ra := RAM[Rb]` | `Ra` | `Z` | EXT1 extends Rb |
+| `STR` | `RAM[#IMM2] := Ra`; `RAM[Ra] := Rb` | \- | \- | EXT1 extends Ra |
+| `JMP` | `PC := PC + #IMMC2`; `PC := Ra` | `PC` | \- | EXT2 extends Ra |
+| `JEQ` | `PC := PC + #IMMC2` if `FlagZ = 1` | `PC` | \- | No |
+| `JNE` | `PC := PC + #IMMC2` if `FlagZ = 0` | `PC` | \- | No |
+| `JCS` | `PC := PC + #IMMC2` if `FlagC = 1` | `PC` | \- | No |
+| `JCC` | `PC := PC + #IMMC2` if `FlagC = 0` | `PC` | \- | No |
+| `JSR` | `PCX := PC + 1`; `PC := Ra` | `PC`, `PCX` | \- | EXT2 extends Ra |
+| `RET` | `PC := PCX` | `PC` | \- | No |
+| `EXT1` | `X[0] := #IMM1` | `X` | \- | \- |
+| `EXT2` | `X[1:0] := #IMM2`; `X[1:0] := Ra[1:0]` | `X` | \- | \- |
+| `MRK` | `PCX := PC + 1` | `PCX` | \- | No |
+| `NOP` | \- | \- | \- | No |
 
 ## Assembling ttcpu Programs
 
