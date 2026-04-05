@@ -11,14 +11,13 @@ VL_ATTR_COLD void Vdut___024root___initial__TOP__0(Vdut___024root* vlSelf) {
     Vdut__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vdut___024root___initial__TOP__0\n"); );
     // Init
-    VlWide<4>/*127:0*/ __Vtemp_hb2bfc2f2__0;
+    VlWide<3>/*95:0*/ __Vtemp_hb8ece69a__0;
     // Body
-    VL_WRITEF("[mem_interface] Loading ROM from: testprogram.mem\n");
-    __Vtemp_hb2bfc2f2__0[0U] = 0x2e6d656dU;
-    __Vtemp_hb2bfc2f2__0[1U] = 0x6772616dU;
-    __Vtemp_hb2bfc2f2__0[2U] = 0x7470726fU;
-    __Vtemp_hb2bfc2f2__0[3U] = 0x746573U;
-    VL_READMEM_N(true, 8, 64, 0, VL_CVT_PACK_STR_NW(4, __Vtemp_hb2bfc2f2__0)
+    VL_WRITEF("[mem_interface] Loading ROM from: multiply.mem\n");
+    __Vtemp_hb8ece69a__0[0U] = 0x2e6d656dU;
+    __Vtemp_hb8ece69a__0[1U] = 0x69706c79U;
+    __Vtemp_hb8ece69a__0[2U] = 0x6d756c74U;
+    VL_READMEM_N(true, 8, 64, 0, VL_CVT_PACK_STR_NW(3, __Vtemp_hb8ece69a__0)
                  ,  &(vlSelf->testing__DOT__main_memory__DOT__rom_mem)
                  , 0, ~0ULL);
     VL_WRITEF("[mem_interface] ROM load complete.\n");

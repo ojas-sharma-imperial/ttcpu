@@ -29,7 +29,7 @@ tt_um_ojas_sharma_imperial_ttcpu main_cpu (
 );
 
 test_mem_interface #(
-    .ROM_INIT_FILE("testprogram.mem")
+    .ROM_INIT_FILE("multiply.mem")
 ) main_memory (
     .clk          (clk),
     .reset        (reset),

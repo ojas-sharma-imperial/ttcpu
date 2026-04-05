@@ -253,7 +253,7 @@ VL_ATTR_COLD void Vdut___024root__trace_init_sub__TOP__0(Vdut___024root* vlSelf,
     tracep->declBus(c+68,"regB", false,-1, 3,0);
     tracep->popNamePrefix(4);
     tracep->pushNamePrefix("main_memory ");
-    tracep->declArray(c+111,"ROM_INIT_FILE", false,-1, 119,0);
+    tracep->declArray(c+111,"ROM_INIT_FILE", false,-1, 95,0);
     tracep->declBit(c+102,"clk", false,-1);
     tracep->declBit(c+103,"reset", false,-1);
     tracep->declBus(c+5,"ram_addr", false,-1, 4,0);
@@ -309,7 +309,7 @@ VL_ATTR_COLD void Vdut___024root__trace_full_sub_0(Vdut___024root* vlSelf, Veril
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vdut___024root__trace_full_sub_0\n"); );
     // Init
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
-    VlWide<4>/*127:0*/ __Vtemp_hb2bfc2f2__0;
+    VlWide<3>/*95:0*/ __Vtemp_hb8ece69a__0;
     // Body
     bufp->fullCData(oldp+1,(vlSelf->testing__DOT__ui_in),8);
     bufp->fullCData(oldp+2,(vlSelf->testing__DOT__uo_out),8);
@@ -488,9 +488,8 @@ VL_ATTR_COLD void Vdut___024root__trace_full_sub_0(Vdut___024root* vlSelf, Veril
     bufp->fullIData(oldp+108,(1U),32);
     bufp->fullBit(oldp+109,(0U));
     bufp->fullIData(oldp+110,(2U),32);
-    __Vtemp_hb2bfc2f2__0[0U] = 0x2e6d656dU;
-    __Vtemp_hb2bfc2f2__0[1U] = 0x6772616dU;
-    __Vtemp_hb2bfc2f2__0[2U] = 0x7470726fU;
-    __Vtemp_hb2bfc2f2__0[3U] = 0x746573U;
-    bufp->fullWData(oldp+111,(__Vtemp_hb2bfc2f2__0),120);
+    __Vtemp_hb8ece69a__0[0U] = 0x2e6d656dU;
+    __Vtemp_hb8ece69a__0[1U] = 0x69706c79U;
+    __Vtemp_hb8ece69a__0[2U] = 0x6d756c74U;
+    bufp->fullWData(oldp+111,(__Vtemp_hb8ece69a__0),96);
 }
