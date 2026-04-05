@@ -68,14 +68,14 @@ This section outlines the syntax and detailed function of each ttcpu instruction
 | `LSR` | `A := A >> #SHIFTCNT`; 0 loaded in | `A` | `Z`, `C` | No |
 | `ASR` | `A := A << #SHIFTCNT`; sign-bit loaded in | `A` | `Z`, `C` | No |
 | `XSR` | `A := A << #SHIFTCNT`; `FlagC` loaded in | `A` | `Z`, `C` | No |
-| `LDR` | `Ra := RAM[#IMM2]`; `Ra := RAM[Rb]` | `Ra` | `Z` | EXT1 extends Rb |
-| `STR` | `RAM[#IMM2] := Ra`; `RAM[Ra] := Rb` | \- | \- | EXT1 extends Ra |
-| `JMP` | `PC := PC + #IMMC2`; `PC := Ra` | `PC` | \- | EXT2 extends Ra |
+| `LDR` | `Ra := RAM[#IMM2]`; `Ra := RAM[Rb]` | `Ra` | `Z` | `EXT1` extends `Rb` |
+| `STR` | `RAM[#IMM2] := Ra`; `RAM[Ra] := Rb` | \- | \- | `EXT1` extends `Ra` |
+| `JMP` | `PC := PC + #IMMC2`; `PC := Ra` | `PC` | \- | `EXT2` extends `Ra` |
 | `JEQ` | `PC := PC + #IMMC2` if `FlagZ = 1` | `PC` | \- | No |
 | `JNE` | `PC := PC + #IMMC2` if `FlagZ = 0` | `PC` | \- | No |
 | `JCS` | `PC := PC + #IMMC2` if `FlagC = 1` | `PC` | \- | No |
 | `JCC` | `PC := PC + #IMMC2` if `FlagC = 0` | `PC` | \- | No |
-| `JSR` | `PCX := PC + 1`; `PC := Ra` | `PC`, `PCX` | \- | EXT2 extends Ra |
+| `JSR` | `PCX := PC + 1`; `PC := Ra` | `PC`, `PCX` | \- | `EXT2` extends `Ra` |
 | `RET` | `PC := PCX` | `PC` | \- | No |
 | `EXT1` | `X[0] := #IMM1` | `X` | \- | \- |
 | `EXT2` | `X[1:0] := #IMM2`; `X[1:0] := Ra[1:0]` | `X` | \- | \- |
