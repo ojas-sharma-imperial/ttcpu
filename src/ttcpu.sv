@@ -20,6 +20,7 @@ logic flagztocp;
 logic flagctoalu;
 logic [1:0] address_extension;
 logic [3:0] Ratocp;
+logic extactive;
 
 datapath main_datapath (
     .clk (clk),
@@ -33,7 +34,8 @@ datapath main_datapath (
     .memaddr (memaddr),
     .memdin (memdin),
     .memdout (memdout),
-    .Raout (Ratocp)
+    .Raout (Ratocp),
+    .extactive (extactive)
 );
 
 controlpath main_controlpath (
@@ -46,7 +48,8 @@ controlpath main_controlpath (
     .romdin (romdin),
     .romaddr (romaddr),
     .instruction (instruction),
-    .flagcout (flagctoalu)
+    .flagcout (flagctoalu),
+    .extactive (extactive)
 );
 
 endmodule

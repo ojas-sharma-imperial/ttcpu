@@ -39,7 +39,7 @@ Note that, since RAM addresses are 5-bit and ROM addresses are 6-bit, there are 
 
 ## Instruction Set Architecture
 
-The full, machine-code-level ISA is defined in the [machine code ISA](isa.png) however the sections below explain exact functionality of instructions at an assembly-programmer level of abstraction.
+The full, machine-code-level ISA is defined in the [machine code ISA](isa1.1.png) however the sections below explain exact functionality of instructions at an assembly-programmer level of abstraction.
 
 ### Immediate Values
 
@@ -71,10 +71,10 @@ This section outlines the syntax and detailed function of each ttcpu instruction
 | `LDR` | `Ra := RAM[#IMM2]`; `Ra := RAM[Rb]` | `Ra` | `Z` | `EXT1`; `Rb` |
 | `STR` | `RAM[#IMM2] := Ra`; `RAM[Ra] := Rb` | \- | \- | `EXT1`; `Ra` |
 | `JMP` | `PC := PC + #IMMC2`; `PC := Ra` | `PC` | \- | `EXT2`; `Ra` |
-| `JEQ` | `PC := PC + #IMMC2` if `FlagZ = 1` | `PC` | \- | No |
-| `JNE` | `PC := PC + #IMMC2` if `FlagZ = 0` | `PC` | \- | No |
-| `JCS` | `PC := PC + #IMMC2` if `FlagC = 1` | `PC` | \- | No |
-| `JCC` | `PC := PC + #IMMC2` if `FlagC = 0` | `PC` | \- | No |
+| `JEQ` | `PC := PC + #IMMC2` if `FlagZ = 1` | `PC` | \- | `EXT2`; `#IMMC2` |
+| `JNE` | `PC := PC + #IMMC2` if `FlagZ = 0` | `PC` | \- | `EXT2`; `#IMMC2` |
+| `JCS` | `PC := PC + #IMMC2` if `FlagC = 1` | `PC` | \- | `EXT2`; `#IMMC2` |
+| `JCC` | `PC := PC + #IMMC2` if `FlagC = 0` | `PC` | \- | `EXT2`; `#IMMC2` |
 | `JSR` | `PCX := PC + 1`; `PC := Ra` | `PC`, `PCX` | \- | `EXT2`; `Ra` |
 | `RET` | `PC := PCX` | `PC` | \- | No |
 | `EXT1` | `X[0] := #IMM1` | `X` | \- | \- |

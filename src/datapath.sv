@@ -17,7 +17,8 @@ module datapath (
     output logic [4:0] memaddr,
     input logic [3:0] memdin,
     output logic [3:0] memdout,
-    output logic [3:0] Raout
+    output logic [3:0] Raout,
+    output logic extactive
 );
 
 logic ad1toregfile;
@@ -103,7 +104,8 @@ extend addr_ext (
     .Ra (din1toalu),
     .imm1 (imm1),
     .imm2(immc2),
-    .extension (addr_extension)
+    .extension (addr_extension),
+    .extactive (extactive)
 );
 
 always_comb begin

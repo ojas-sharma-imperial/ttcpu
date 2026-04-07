@@ -11,13 +11,13 @@ VL_ATTR_COLD void Vdut___024root___initial__TOP__0(Vdut___024root* vlSelf) {
     Vdut__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vdut___024root___initial__TOP__0\n"); );
     // Init
-    VlWide<3>/*95:0*/ __Vtemp_hb8ece69a__0;
+    VlWide<3>/*95:0*/ __Vtemp_hd2c9f1e7__0;
     // Body
-    VL_WRITEF("[mem_interface] Loading ROM from: multiply.mem\n");
-    __Vtemp_hb8ece69a__0[0U] = 0x2e6d656dU;
-    __Vtemp_hb8ece69a__0[1U] = 0x69706c79U;
-    __Vtemp_hb8ece69a__0[2U] = 0x6d756c74U;
-    VL_READMEM_N(true, 8, 64, 0, VL_CVT_PACK_STR_NW(3, __Vtemp_hb8ece69a__0)
+    VL_WRITEF("[mem_interface] Loading ROM from: romdata.mem\n");
+    __Vtemp_hd2c9f1e7__0[0U] = 0x2e6d656dU;
+    __Vtemp_hd2c9f1e7__0[1U] = 0x64617461U;
+    __Vtemp_hd2c9f1e7__0[2U] = 0x726f6dU;
+    VL_READMEM_N(true, 8, 64, 0, VL_CVT_PACK_STR_NW(3, __Vtemp_hd2c9f1e7__0)
                  ,  &(vlSelf->testing__DOT__main_memory__DOT__rom_mem)
                  , 0, ~0ULL);
     VL_WRITEF("[mem_interface] ROM load complete.\n");
@@ -70,6 +70,7 @@ VL_ATTR_COLD void Vdut___024root___ctor_var_reset(Vdut___024root* vlSelf) {
     vlSelf->testing__DOT__ram_addr = VL_RAND_RESET_I(5);
     vlSelf->testing__DOT__main_cpu__DOT__memaddr = VL_RAND_RESET_I(5);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__flagztocp = VL_RAND_RESET_I(1);
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__ad1toregfile = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__wen1toregfile = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__din1toalu = VL_RAND_RESET_I(4);
@@ -98,19 +99,19 @@ VL_ATTR_COLD void Vdut___024root___ctor_var_reset(Vdut___024root* vlSelf) {
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_alu__DOT__mainShifter__DOT__shift_1__DOT__temp = VL_RAND_RESET_I(4);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_alu__DOT__mainShifter__DOT__shift_2__DOT__temp = VL_RAND_RESET_I(4);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX = VL_RAND_RESET_I(2);
-    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagc = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagz = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc = VL_RAND_RESET_I(6);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pcx = VL_RAND_RESET_I(6);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_taken = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination = VL_RAND_RESET_I(6);
-    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jsr = VL_RAND_RESET_I(1);
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__saveaddress = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jumpen = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagcwen = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagzwen = VL_RAND_RESET_I(1);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset = VL_RAND_RESET_I(6);
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_reg = VL_RAND_RESET_I(6);
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset = VL_RAND_RESET_I(6);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[__Vi0] = VL_RAND_RESET_I(4);
     }

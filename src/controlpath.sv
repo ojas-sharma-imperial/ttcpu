@@ -10,6 +10,7 @@ module controlpath (
     input logic [3:0] Ra,
     input logic [1:0] addr_extension,
     input logic [7:0] romdin,
+    input logic extactive,
 
     output logic [5:0] romaddr,
     output logic [7:0] instruction,
@@ -27,7 +28,7 @@ logic [5:0] pcx;
 
 logic jump_taken;
 logic [5:0] destination;
-logic jsr;
+logic saveaddress;
 logic jumpen;
 logic flagcwen;
 logic flagzwen;
@@ -48,7 +49,9 @@ cond jump_conditions (
     .pcxin (pcx),
     .jump (jump_taken),
     .destination (destination),
-    .saveadress (jsr)
+    .saveadress (saveaddress),
+    .extended_select(instruction[4]),
+    .extend_active (extactive)
 );
 
 controldecode controlpath_decode (
@@ -74,7 +77,7 @@ always_ff @(posedge clk) begin
             pc <= pc + 1;
         end
 
-        if (jsr) begin // update pcx when jsr taken
+        if (saveaddress) begin // update pcx when saveaddress needed
             pcx <= pc + 1;
         end
 

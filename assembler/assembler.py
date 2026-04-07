@@ -33,6 +33,7 @@ def is_register(token: str) -> bool:
     """Return True if token is a valid register name (A or B)."""
     return token.strip().upper() in ('A', 'B')
 
+
 def parse_register(token: str) -> int:
     """Parse 'A' -> 0, 'B' -> 1"""
     token = token.strip().upper()
@@ -58,15 +59,14 @@ def parse_imm(token: str, bits: int, signed: bool = False) -> int:
     mask = (1 << bits) - 1
 
     if signed:
-        lo_signed   = -(1 << (bits - 1))       # e.g. -8  for 4-bit
-        hi_signed   =  (1 << (bits - 1)) - 1   # e.g.  7  for 4-bit
-        hi_unsigned =  (1 << bits) - 1          # e.g. 15  for 4-bit
+        lo_signed   = -(1 << (bits - 1))
+        hi_signed   =  (1 << (bits - 1)) - 1
+        hi_unsigned =  (1 << bits) - 1
 
-        # Accept signed range [-8..7] OR unsigned raw pattern [0..15]
         if lo_signed <= value <= hi_signed:
-            return value & mask                 # two's complement
+            return value & mask
         elif 0 <= value <= hi_unsigned:
-            return value & mask                 # already a raw bit pattern
+            return value & mask
         else:
             raise ValueError(
                 f"Immediate {value} out of range: "
@@ -81,33 +81,41 @@ def parse_imm(token: str, bits: int, signed: bool = False) -> int:
             )
         return value
 
-
-def parse_immc2(token: str) -> int:
+def parse_immc2(token: str, raw: bool = False) -> int:
     """
-    Parse a jump offset. Only -3, -2, 2, 3 are valid.
-    Encodes as:
+    Parse a jump offset.
+    Normal (corrected) mapping:
       +2 -> 0b00
       +3 -> 0b01
       -2 -> 0b10
       -3 -> 0b11
+    Raw (after EXT instruction): encode directly as 2-bit unsigned value.
+      0 -> 0b00
+      1 -> 0b01
+      2 -> 0b10
+      3 -> 0b11
     """
     token = token.strip().lstrip('#')
     value = int(token, 0)
 
-    mapping = {
-        2:  0b00,
-        3:  0b01,
-        -2: 0b10,
-        -3: 0b11,
-    }
-
-    if value not in mapping:
-        raise ValueError(
-            f"Invalid jump offset {value}: must be one of -3, -2, 2, 3"
-        )
-
-    return mapping[value]
-
+    if raw:
+        if not (0 <= value <= 3):
+            raise ValueError(
+                f"Invalid raw jump offset {value}: must be 0-3 after an EXT instruction"
+            )
+        return value
+    else:
+        mapping = {
+            2:  0b00,
+            3:  0b01,
+            -2: 0b10,
+            -3: 0b11,
+        }
+        if value not in mapping:
+            raise ValueError(
+                f"Invalid jump offset {value}: must be one of -3, -2, 2, 3"
+            )
+        return mapping[value]
 
 def parse_indirect(token: str):
     """
@@ -119,7 +127,7 @@ def parse_indirect(token: str):
     if not m:
         raise ValueError(f"Expected indirect operand like [A], [B] or [#n], got '{token}'")
     inner = m.group(1).strip()
-    if is_register(inner):                              # <-- fixed: was checking for 'R' prefix
+    if is_register(inner):
         return ('reg', parse_register(inner))
     else:
         return ('imm', parse_imm(inner, 2, signed=False))
@@ -144,14 +152,13 @@ ALU_OPC = {
 def enc_imm_alu(aluopc: int, imms4: int) -> int:
     """
     bit7=0 | imms4[3:0] @ bits[6:3] | aluopc[2:0] @ bits[2:0]
-    imms4 is already a 4-bit two's-complement pattern.
     """
     return (0 << 7) | ((imms4 & 0xF) << 3) | (aluopc & 0x7)
 
 
 # --- Section 00: Shifts  (bit7=0, shiftcount=[6:5], shiftopc=[4:3], bits[2:0]=111) ---
 
-SHIFT_OPC = {           # shiftopc = instruction[4:3]
+SHIFT_OPC = {
     'LSL': 0b00,
     'LSR': 0b01,
     'ASR': 0b10,
@@ -174,6 +181,8 @@ def enc_reg_alu(aluopc: int, ra: int, rb: int) -> int:
     return (0b10 << 6) | ((ra & 0x1) << 5) | ((rb & 0x1) << 4) | (0 << 3) | (aluopc & 0x7)
 
 
+# --- Section 10: EXT1 #IMM1 ------------------------------------------------
+
 def enc_ext1_imm(imm1: int) -> int:
     """
     EXT1 #IMM1
@@ -182,7 +191,7 @@ def enc_ext1_imm(imm1: int) -> int:
     return (0b10 << 6) | ((imm1 & 0x1) << 5) | (0 << 4) | (0 << 3) | 0b111
 
 
-# --- Section 10: EXT2 Ra  (bits[7:6]=10, Ra=[5], bit4=1, bit3=0, bits[2:0]=111) ---
+# --- Section 10: EXT2 Ra ---------------------------------------------------
 
 def enc_ext2_ra(ra: int) -> int:
     """
@@ -192,7 +201,7 @@ def enc_ext2_ra(ra: int) -> int:
     return (0b10 << 6) | ((ra & 0x1) << 5) | (1 << 4) | (0 << 3) | 0b111
 
 
-# --- Section 10: EXT2 #IMM2  (bits[7:6]=10, imm2=[5:4], bit3=1, bits[2:0]=111) ---
+# --- Section 10: EXT2 #IMM2 ------------------------------------------------
 
 def enc_ext2_imm(imm2: int) -> int:
     """
@@ -238,14 +247,14 @@ def enc_str_rb(ra: int, rb: int) -> int:
     return (0b11 << 6) | ((ra & 0x1) << 5) | ((rb & 0x1) << 4) | (0 << 3) | 0b110
 
 
-# --- Section 11: Jumps  (immc2=[5:4], jumpinv=[3], jumpopc=[2:1], bit0=1) --
+# --- Section 11: Jumps by immediate ----------------------------------------
 #
 #  JMP:  jumpinv=0, jumpopc=00  ->  bits[3:0] = 0_00_1
 #  JEQ:  jumpinv=0, jumpopc=01  ->  bits[3:0] = 0_01_1
 #  JNE:  jumpinv=1, jumpopc=01  ->  bits[3:0] = 1_01_1
 #  JCS:  jumpinv=0, jumpopc=10  ->  bits[3:0] = 0_10_1
 #  JCC:  jumpinv=1, jumpopc=10  ->  bits[3:0] = 1_10_1
-#  bit0 is always 1 (marks this as a jump instruction)
+#  bit0 always 1
 
 JUMP_PARAMS = {          # (jumpinv, jumpopc)
     'JMP': (0, 0b00),
@@ -255,7 +264,7 @@ JUMP_PARAMS = {          # (jumpinv, jumpopc)
     'JCC': (1, 0b10),
 }
 
-def enc_jump(immc2: int, jumpinv: int, jumpopc: int) -> int:
+def enc_jump_imm(immc2: int, jumpinv: int, jumpopc: int) -> int:
     """
     bits[7:6]=11 | immc2[1:0] @ bits[5:4] | jumpinv @ bit[3] | jumpopc[1:0] @ bits[2:1] | 1 @ bit[0]
     """
@@ -273,10 +282,21 @@ def enc_jump(immc2: int, jumpinv: int, jumpopc: int) -> int:
 def enc_jsr(ra: int) -> int:
     """
     JSR Ra
-    bits[7:6]=11 | Ra @ bit[5] | 0(X) @ bit[4] | 0 @ bit[3] | 111 @ bits[2:0]
-    Table row: 1 1 Ra X 0 1 1 1
+    bits[7:6]=11 | Ra @ bit[5] | 0 @ bit[4] | 0 @ bit[3] | 111 @ bits[2:0]
+    Table row: 1 1 Ra 0 0 1 1 1
     """
     return (0b11 << 6) | ((ra & 0x1) << 5) | (0 << 4) | (0 << 3) | 0b111
+
+
+# --- Section 11: JMP Ra  ---------------------------------------------------
+
+def enc_jump_ra(ra: int) -> int:
+    """
+    JMP Ra
+    bits[7:6]=11 | Ra @ bit[5] | 1 @ bit[4] | 0 @ bit[3] | 111 @ bits[2:0]
+    Table row: 1 1 Ra 1 0 1 1 1
+    """
+    return (0b11 << 6) | ((ra & 0x1) << 5) | (1 << 4) | (0 << 3) | 0b111
 
 
 # --- Section 11: RET  ------------------------------------------------------
@@ -294,9 +314,10 @@ def enc_ret() -> int:
 # Line assembler
 # ---------------------------------------------------------------------------
 
-def assemble_line(line: str, lineno: int) -> int | None:
+def assemble_line(line: str, lineno: int, prev_mnemonic: str | None = None) -> int | None:
     """
     Assemble one line. Returns an int (0–255), or None for blank/comment lines.
+    prev_mnemonic: the mnemonic of the last assembled instruction (None if first).
     Raises ValueError on any error.
     """
     # Strip inline comments (; or //)
@@ -304,14 +325,15 @@ def assemble_line(line: str, lineno: int) -> int | None:
     if not line:
         return None
 
-    # Split on whitespace and commas (but keep bracket groups together)
-    # e.g. "LDR A, [B]" -> ['LDR', 'A', '[B]']
     tokens = re.split(r'[\s,]+', line)
     tokens = [t for t in tokens if t]
     if not tokens:
         return None
 
     mnemonic = tokens[0].upper()
+
+    # whether the previous real instruction was an EXT
+    after_ext = prev_mnemonic in ('EXT1', 'EXT2')
 
     # ------------------------------------------------------------------ RET
     if mnemonic == 'RET':
@@ -321,11 +343,34 @@ def assemble_line(line: str, lineno: int) -> int | None:
     if mnemonic == 'NOP':
         return 0b11001001
 
+    # ------------------------------------------------------------------ MRK
+    if mnemonic == 'MRK':
+        return 0b11011001
+
     # ------------------------------------------------------------------ JSR
     if mnemonic == 'JSR':
         if len(tokens) < 2:
             raise ValueError(f"Line {lineno}: JSR requires a register operand")
         return enc_jsr(parse_register(tokens[1]))
+
+    # ------------------------------------------------------------------ JMP
+    if mnemonic == 'JMP':
+        if len(tokens) < 2:
+            raise ValueError(f"Line {lineno}: JMP requires an operand")
+        if is_register(tokens[1]):
+            return enc_jump_ra(parse_register(tokens[1]))
+        else:
+            immc2 = parse_immc2(tokens[1], raw=after_ext)        # <-- pass raw flag
+            inv, opc = JUMP_PARAMS['JMP']
+            return enc_jump_imm(immc2, inv, opc)
+
+    # --------------------------------------------------------- Other Jumps
+    if mnemonic in JUMP_PARAMS:
+        if len(tokens) < 2:
+            raise ValueError(f"Line {lineno}: {mnemonic} requires an immediate operand")
+        immc2 = parse_immc2(tokens[1], raw=after_ext)            # <-- pass raw flag
+        inv, opc = JUMP_PARAMS[mnemonic]
+        return enc_jump_imm(immc2, inv, opc)
 
     # ----------------------------------------------------------------- EXT1
     if mnemonic == 'EXT1':
@@ -343,14 +388,6 @@ def assemble_line(line: str, lineno: int) -> int | None:
         else:
             return enc_ext2_imm(parse_imm(op, 2, signed=False))
 
-    # --------------------------------------------------------------- Jumps
-    if mnemonic in JUMP_PARAMS:
-        if len(tokens) < 2:
-            raise ValueError(f"Line {lineno}: {mnemonic} requires an immediate operand")
-        immc2 = parse_immc2(tokens[1])
-        inv, opc = JUMP_PARAMS[mnemonic]
-        return enc_jump(immc2, inv, opc)
-
     # --------------------------------------------------------------- Shifts
     if mnemonic in SHIFT_OPC:
         if len(tokens) < 2:
@@ -363,7 +400,7 @@ def assemble_line(line: str, lineno: int) -> int | None:
         if len(tokens) < 3:
             raise ValueError(f"Line {lineno}: {mnemonic} requires Ra and an address operand")
         ra = parse_register(tokens[1])
-        kind, val = parse_indirect(tokens[2])           # parse_indirect now uses is_register()
+        kind, val = parse_indirect(tokens[2])
         if mnemonic == 'LDR':
             return enc_ldr_imm(ra, val) if kind == 'imm' else enc_ldr_rb(ra, val)
         else:
@@ -374,18 +411,15 @@ def assemble_line(line: str, lineno: int) -> int | None:
         if len(tokens) < 2:
             raise ValueError(f"Line {lineno}: {mnemonic} requires an immediate or register operand")
 
-        # If first operand is a register (A or B), it's the register ALU form
-        if is_register(tokens[1]) and len(tokens) > 2:  # <-- also uses is_register()
+        if is_register(tokens[1]) and len(tokens) > 2:
             ra = parse_register(tokens[1])
             rb = parse_register(tokens[2])
             return enc_reg_alu(ALU_OPC[mnemonic], ra, rb)
         else:
-            # Immediate form — no register specified, always targets A
             imms4 = parse_imm(tokens[1], 4, signed=True)
             return enc_imm_alu(ALU_OPC[mnemonic], imms4)
 
     raise ValueError(f"Line {lineno}: Unknown mnemonic '{mnemonic}'")
-
 
 # ---------------------------------------------------------------------------
 # Top-level assembler
@@ -394,6 +428,7 @@ def assemble_line(line: str, lineno: int) -> int | None:
 def assemble(input_path: str, output_path: str):
     instructions = []
     errors       = []
+    prev_mnemonic = None                                          # <-- track previous mnemonic
 
     with open(input_path, 'r') as f:
         lines = f.readlines()
@@ -403,11 +438,16 @@ def assemble(input_path: str, output_path: str):
 
     for lineno, line in enumerate(lines, start=1):
         try:
-            result = assemble_line(line, lineno)
+            result = assemble_line(line, lineno, prev_mnemonic)  # <-- pass prev_mnemonic
             if result is not None:
                 instructions.append(result)
                 print(f"{lineno:<6} {line.rstrip():<28} "
                       f"0x{result:02X}   {result:08b}")
+                # update prev_mnemonic only on successfully assembled instructions
+                # strip comments and extract mnemonic
+                clean = re.split(r'\s*[;]|\s*//', line)[0].strip()
+                if clean:
+                    prev_mnemonic = clean.split()[0].upper()     # <-- update after success
         except ValueError as e:
             errors.append(str(e))
             print(f"{'ERROR':<6} {line.rstrip():<28} {e}")
@@ -423,7 +463,6 @@ def assemble(input_path: str, output_path: str):
             f.write(f"{instruction:08b}\n")
 
     print(f"\nAssembled {len(instructions)} instruction(s)  ->  '{output_path}'")
-
 
 # ---------------------------------------------------------------------------
 # Entry point

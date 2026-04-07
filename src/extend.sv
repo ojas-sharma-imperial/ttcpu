@@ -6,11 +6,11 @@ module extend (
     input logic [3:0] Ra,
     input logic imm1,
     input logic [1:0] imm2,
-    output logic [1:0] extension
+    output logic [1:0] extension,
+    output logic extactive
 );
 
 logic [1:0] regX;
-logic extactive;
 
 always_comb begin
     extension = regX;

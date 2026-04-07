@@ -21,13 +21,13 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__0(Vdut___024root* vlSelf) {
     Vdut__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vdut___024root___sequent__TOP__0\n"); );
     // Init
-    CData/*0:0*/ __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive;
+    CData/*0:0*/ __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive;
     CData/*5:0*/ __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc;
     // Body
     __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc 
         = vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc;
-    __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive 
-        = vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive;
+    __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive 
+        = vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive;
     if (vlSelf->reset) {
         vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagz = 0U;
         __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc = 0U;
@@ -35,7 +35,7 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__0(Vdut___024root* vlSelf) {
         vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_registers__DOT__regB = 0U;
         vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_registers__DOT__regA = 0U;
         vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX = 0U;
-        __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive = 0U;
+        __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive = 0U;
         vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagc = 0U;
     } else {
         if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagzwen) {
@@ -46,7 +46,7 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__0(Vdut___024root* vlSelf) {
             = (0x3fU & ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_taken)
                          ? (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination)
                          : ((IData)(1U) + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc))));
-        if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jsr) {
+        if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__saveaddress) {
             vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pcx 
                 = (0x3fU & ((IData)(1U) + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc)));
         }
@@ -62,11 +62,11 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__0(Vdut___024root* vlSelf) {
                     = vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__regfiledin;
             }
         }
-        if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive) {
-            __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive = 0U;
+        if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive) {
+            __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive = 0U;
             vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX = 0U;
         } else if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__extenden) {
-            __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive = 1U;
+            __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive = 1U;
             if ((0x10U & (IData)(vlSelf->testing__DOT__ui_in))) {
                 vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX 
                     = (3U & ((8U & (IData)(vlSelf->testing__DOT__ui_in))
@@ -111,8 +111,8 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__0(Vdut___024root* vlSelf) {
     }
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc 
         = __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc;
-    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive 
-        = __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__extactive;
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive 
+        = __Vdly__testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive;
 }
 
 VL_INLINE_OPT void Vdut___024root___sequent__TOP__1(Vdut___024root* vlSelf) {
@@ -120,32 +120,24 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__1(Vdut___024root* vlSelf) {
     Vdut__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vdut___024root___sequent__TOP__1\n"); );
     // Init
-    CData/*4:0*/ __Vdlyvdim0__testing__DOT__main_memory__DOT__ram_mem__v0;
-    CData/*3:0*/ __Vdlyvval__testing__DOT__main_memory__DOT__ram_mem__v0;
     CData/*0:0*/ __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v0;
-    CData/*0:0*/ __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v1;
+    CData/*4:0*/ __Vdlyvdim0__testing__DOT__main_memory__DOT__ram_mem__v32;
+    CData/*3:0*/ __Vdlyvval__testing__DOT__main_memory__DOT__ram_mem__v32;
+    CData/*0:0*/ __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v32;
     // Body
-    if ((1U & (~ (IData)(vlSelf->reset)))) {
-        vlSelf->testing__DOT__main_memory__DOT__unnamedblk1__DOT__i = 0x20U;
-    }
     __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v0 = 0U;
-    __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v1 = 0U;
+    __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v32 = 0U;
     if (vlSelf->reset) {
-        if ((0x80U & (IData)(vlSelf->testing__DOT__uo_out))) {
-            __Vdlyvval__testing__DOT__main_memory__DOT__ram_mem__v0 
-                = (0xfU & (IData)(vlSelf->testing__DOT__uio_out));
-            __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v0 = 1U;
-            __Vdlyvdim0__testing__DOT__main_memory__DOT__ram_mem__v0 
-                = vlSelf->testing__DOT__ram_addr;
-        }
-    } else {
-        __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v1 = 1U;
+        vlSelf->testing__DOT__main_memory__DOT__unnamedblk1__DOT__i = 0x20U;
+        __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v0 = 1U;
+    } else if ((0x80U & (IData)(vlSelf->testing__DOT__uo_out))) {
+        __Vdlyvval__testing__DOT__main_memory__DOT__ram_mem__v32 
+            = (0xfU & (IData)(vlSelf->testing__DOT__uio_out));
+        __Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v32 = 1U;
+        __Vdlyvdim0__testing__DOT__main_memory__DOT__ram_mem__v32 
+            = vlSelf->testing__DOT__ram_addr;
     }
     if (__Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v0) {
-        vlSelf->testing__DOT__main_memory__DOT__ram_mem[__Vdlyvdim0__testing__DOT__main_memory__DOT__ram_mem__v0] 
-            = __Vdlyvval__testing__DOT__main_memory__DOT__ram_mem__v0;
-    }
-    if (__Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v1) {
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[0U] = 0U;
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[1U] = 0U;
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[2U] = 0U;
@@ -178,6 +170,10 @@ VL_INLINE_OPT void Vdut___024root___sequent__TOP__1(Vdut___024root* vlSelf) {
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[0x1dU] = 0U;
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[0x1eU] = 0U;
         vlSelf->testing__DOT__main_memory__DOT__ram_mem[0x1fU] = 0U;
+    }
+    if (__Vdlyvset__testing__DOT__main_memory__DOT__ram_mem__v32) {
+        vlSelf->testing__DOT__main_memory__DOT__ram_mem[__Vdlyvdim0__testing__DOT__main_memory__DOT__ram_mem__v32] 
+            = __Vdlyvval__testing__DOT__main_memory__DOT__ram_mem__v32;
     }
 }
 
@@ -229,6 +225,7 @@ VL_INLINE_OPT void Vdut___024root___combo__TOP__1(Vdut___024root* vlSelf) {
             }
         }
     }
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__op2sel = 0U;
     __Vtableidx2 = ((0x1cU & ((IData)(vlSelf->testing__DOT__ui_in) 
                               << 2U)) | (3U & ((IData)(vlSelf->testing__DOT__ui_in) 
                                                >> 6U)));
@@ -238,7 +235,6 @@ VL_INLINE_OPT void Vdut___024root___combo__TOP__1(Vdut___024root* vlSelf) {
         = Vdut__ConstPool__TABLE_h62a9b285_0[__Vtableidx2];
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagcwen 
         = Vdut__ConstPool__TABLE_h484d16ef_0[__Vtableidx2];
-    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__op2sel = 0U;
     __Vtableidx1 = (((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__flagc) 
                      << 3U) | (7U & (IData)(vlSelf->testing__DOT__ui_in)));
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_alu__DOT__cintoaddsub 
@@ -290,7 +286,7 @@ VL_INLINE_OPT void Vdut___024root___combo__TOP__1(Vdut___024root* vlSelf) {
                             >> 2U)));
         }
     }
-    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jsr = 0U;
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__saveaddress = 0U;
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_taken 
         = ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jumpen) 
            & ((4U & (IData)(vlSelf->testing__DOT__ui_in))
@@ -407,13 +403,21 @@ VL_INLINE_OPT void Vdut___024root___combo__TOP__1(Vdut___024root* vlSelf) {
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_reg 
         = (((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX) 
             << 4U) | (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__din1toalu));
+    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset 
+        = ((0x30U & ((- (IData)((1U & ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX) 
+                                       >> 1U)))) << 4U)) 
+           | (((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__addr_ext__DOT__regX) 
+               << 2U) | (3U & ((IData)(vlSelf->testing__DOT__ui_in) 
+                               >> 4U))));
     if (vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jumpen) {
-        vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jsr = 0U;
+        vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__saveaddress = 0U;
         if ((4U & (IData)(vlSelf->testing__DOT__ui_in))) {
             if ((2U & (IData)(vlSelf->testing__DOT__ui_in))) {
                 if ((1U & (~ ((IData)(vlSelf->testing__DOT__ui_in) 
                               >> 3U)))) {
-                    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jsr = 1U;
+                    vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__saveaddress 
+                        = (1U & (~ ((IData)(vlSelf->testing__DOT__ui_in) 
+                                    >> 4U)));
                 }
                 vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination 
                     = (0x3fU & ((8U & (IData)(vlSelf->testing__DOT__ui_in))
@@ -422,23 +426,48 @@ VL_INLINE_OPT void Vdut___024root___combo__TOP__1(Vdut___024root* vlSelf) {
             } else {
                 vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination 
                     = (0x3fU & ((8U & (IData)(vlSelf->testing__DOT__ui_in))
+                                 ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive)
+                                     ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset))
+                                     : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset)))
+                                 : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive)
+                                     ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset))
+                                     : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset)))));
+            }
+        } else {
+            if ((1U & (~ ((IData)(vlSelf->testing__DOT__ui_in) 
+                          >> 1U)))) {
+                if ((8U & (IData)(vlSelf->testing__DOT__ui_in))) {
+                    if ((0x10U & (IData)(vlSelf->testing__DOT__ui_in))) {
+                        vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__saveaddress = 1U;
+                    }
+                }
+            }
+            if ((2U & (IData)(vlSelf->testing__DOT__ui_in))) {
+                vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination 
+                    = (0x3fU & ((8U & (IData)(vlSelf->testing__DOT__ui_in))
+                                 ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive)
+                                     ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset))
+                                     : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset)))
+                                 : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive)
+                                     ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset))
+                                     : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
+                                        + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset)))));
+            } else if ((1U & (~ ((IData)(vlSelf->testing__DOT__ui_in) 
+                                 >> 3U)))) {
+                vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination 
+                    = (0x3fU & ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__extactive)
                                  ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
-                                    + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset))
+                                    + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__extended_offset))
                                  : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
                                     + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset))));
             }
-        } else if ((2U & (IData)(vlSelf->testing__DOT__ui_in))) {
-            vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination 
-                = (0x3fU & ((8U & (IData)(vlSelf->testing__DOT__ui_in))
-                             ? ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
-                                + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset))
-                             : ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
-                                + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset))));
-        } else if ((1U & (~ ((IData)(vlSelf->testing__DOT__ui_in) 
-                             >> 3U)))) {
-            vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__destination 
-                = (0x3fU & ((IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__pc) 
-                            + (IData)(vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_controlpath__DOT__jump_conditions__DOT__offset)));
         }
     }
     vlSelf->testing__DOT__main_cpu__DOT__main_cpu__DOT__main_datapath__DOT__main_alu__DOT__main_adder__DOT__secondinput 

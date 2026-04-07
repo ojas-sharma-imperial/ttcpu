@@ -46,7 +46,7 @@ module test_mem_interface #(
 
     // ── RAM: Synchronous Write, Asynchronous Read ─────────────
     always_ff @(posedge clk or posedge reset) begin
-        if (!reset) begin
+        if (reset) begin
             integer i;
             for (i = 0; i < 32; i = i + 1)
                 ram_mem[i] <= 4'h0;
