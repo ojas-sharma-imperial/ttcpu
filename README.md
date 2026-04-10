@@ -17,7 +17,7 @@ There are largely 4 categories of instruction present on the ttcpu:
 - Jump Instructions (ie. `JMP`, `JEQ`, `JSR`)
 - Extend Instructions (allowing computed addressing of greater than 4-bits)
 
-The exact use of these instructions, along with assembly instructions for the ISA are defined in the [ISA documentation](docs/isa.md).
+The exact use of these instructions, along with assembly instructions for the ISA are defined in the [programming guide](docs/programming-guide.md). For additional details, including the exact operations of each instruction, refer to the [ISA documentation](docs/isa.md).
 
 ## External Hardware
 
